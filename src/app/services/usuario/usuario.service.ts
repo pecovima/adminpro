@@ -9,6 +9,7 @@ import swal from 'sweetalert';
 import { Router } from '@angular/router';
 import { SubirArchivoService } from '../subir-archivo/subir-archivo.service';
 
+  
 @Injectable({
   providedIn: 'root'
 })
@@ -116,10 +117,14 @@ export class UsuarioService {
     return this.http.put(url,usuario)
      .pipe(
       map((resp:any)=>{
+
+        if(usuario._id===this.usuario._id){
+         let usuarioDb:Usuario=resp.usuario;
+         this.guardarStorage(usuarioDb._id, this.token, usuarioDb);
+        }
       //this.usuario=res.usuario;  
-      let usuarioDb:Usuario=resp.usuario;
-       this.guardarStorage(usuarioDb._id, this.token, usuarioDb);
-      swal('Usuario Actualizado', usuarioDb.nombre, 'success');
+   
+      swal('Usuario Actualizado', usuario.nombre, 'success');
       return true;      
     })
     );
@@ -141,5 +146,36 @@ cambiarImagen(archivo:File, id:string){
 
   
 }
+
+cargarUsuarios(desde:number=0){
+    let url= URL_SERVICIOS+'/usuario?desde='+desde;
+
+    return this.http.get(url);
+
+
+}
+
+  buscarUsuarios(termino:string){
+
+    let url=URL_SERVICIOS+'/busqueda/coleccion/usuarios/'+termino;
+    return this.http.get(url)
+      .pipe(
+      map((resp:any)=>resp.usuarios)
+    );
+      console.log(termino)
+  }
+
+  borrarUsuario(id:string){
+    let url=URL_SERVICIOS+'/usuario/'+id;
+    url+='?token='+this.token;
+    return this.http.delete(url)
+       .pipe(
+      map(resp=>{
+      swal('Usuario borrado','El usuario ha sido eliminado correctamente', 'success');
+      return true;   
+
+      })
+       );
+  }
 
 }
