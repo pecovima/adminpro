@@ -9,6 +9,9 @@ import { RxjsComponent } from './rxjs/rxjs.component';
 import { ProfileComponent } from './profile/profile.component';
 import { LoginGardGuard } from '../services/service.index';
 import { UsuariosComponent } from './usuarios/usuarios.component';
+import { HospitalesComponent } from './hospitales/hospitales.component';
+import { MedicosComponent } from './medicos/medicos.component';
+import { MedicoComponent } from './medicos/medico.component';
 
 
 
@@ -27,6 +30,9 @@ const pageRoutes:Routes=[
         { path: 'perfil', component: ProfileComponent,data: { titulo: 'Perfil de usuario'} },
         //Mantenimiento
         { path: 'usuarios', component: UsuariosComponent,data: { titulo: 'Mantenimiento de usuario'} },
+        { path: 'hospitales', component: HospitalesComponent,data: { titulo: 'Mantenimiento de Hospitales'} },
+        { path: 'medicos', component: MedicosComponent,data: { titulo: 'Mantenimiento de Medicos'} },
+        { path: 'medico/:id', component: MedicoComponent,data: { titulo: 'Actualizar Medicos'} },
         { path: '', redirectTo: '/dashboard', pathMatch: 'full' }
 
     ]
