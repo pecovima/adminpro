@@ -134,7 +134,7 @@ export class UsuarioService {
       map((resp:any)=>{
 
         if(usuario._id===this.usuario._id){
-         let usuarioDb:Usuario=resp.usuario;
+         let usuarioDb:Ucsuario=resp.usuario;
          this.guardarStorage(usuarioDb._id, this.token, usuarioDb,this.menu);
         }
       //this.usuario=res.usuario;  
