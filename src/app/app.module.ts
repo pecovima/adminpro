@@ -1,3 +1,4 @@
+import { SharedModule } from './shared/shared.module';
 //import { SettingsService } from './services/service.index';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -30,7 +31,8 @@ import { FormsModule,ReactiveFormsModule } from '@angular/forms';
   declarations: [
     AppComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    PagesComponent
     
     //NopagefoundComponent,
     //DashboardComponent,
@@ -45,10 +47,11 @@ import { FormsModule,ReactiveFormsModule } from '@angular/forms';
   imports: [
     BrowserModule,
     APP_ROUTES,
-    PageModule,
+    //PageModule,
     FormsModule,
     ReactiveFormsModule,
-    ServiceModule
+    ServiceModule,
+    SharedModule
 
   ],
   providers: [],

@@ -14,16 +14,22 @@ import { MedicosComponent } from './medicos/medicos.component';
 import { MedicoComponent } from './medicos/medico.component';
 import { BusquedaComponent } from './busqueda/busqueda.component';
 import { AdminGuard } from '../services/service.index';
+import { VerificaTokenGuard } from '../services/guards/verifica-token.guard';
 
 
 
 const pageRoutes:Routes=[
-    { 
-    path: '', 
+   // { 
+/*     path: '', 
     component: PagesComponent,
     canActivate:[LoginGardGuard],
-    children:[
-        {path:'dashboard',component:DashboardComponent, data: { titulo: 'Dashboard'}},
+    children:[ */
+        {
+            path:'dashboard',
+            component:DashboardComponent,
+            canActivate:[VerificaTokenGuard],
+             data: { titulo: 'Dashboard'}
+        },
         { path: 'progress', component: ProgressComponent,data: { titulo: 'Progress'} },
         { path: 'graficas1', component: Graficas1Component,data: { titulo: 'Graficas'} },
         { path: 'promesas', component: PromesasComponent,data: { titulo: 'Promesas'} },
@@ -43,8 +49,8 @@ const pageRoutes:Routes=[
         { path: 'medico/:id', component: MedicoComponent,data: { titulo: 'Actualizar Medicos'} },
         { path: '', redirectTo: '/dashboard', pathMatch: 'full' }
 
-    ]
-    }
+   /*  ]
+    } */
 
 ];
 

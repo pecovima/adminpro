@@ -9,6 +9,7 @@ import swal from 'sweetalert';
 import { Router } from '@angular/router';
 import { SubirArchivoService } from '../subir-archivo/subir-archivo.service';
 
+
   
 @Injectable({
   providedIn: 'root'
@@ -24,6 +25,21 @@ export class UsuarioService {
   public _subirArchivoService:SubirArchivoService ) { 
     this.cargarStorage();
     console.log('servicio de usuario listo');
+  }
+
+  renuevaToken(){
+
+    let url=URL_SERVICIOS+'/login/renuevatoken';
+    url+='?token='+this.token;
+
+   return this.http.get(url)
+   .pipe(
+     map((resp:any)=>{
+       this.token=resp.token;
+       localStorage.setItem('token', this.token);
+       return true;
+     })
+   );
   }
 
   estaLogueado(){
@@ -72,6 +88,11 @@ export class UsuarioService {
       map((resp:any)=>{
       this.guardarStorage(resp.id, resp.token, resp.usuario, resp.menu);       
         return true;
+      }),
+      catchError(err => {    
+        this.router.navigate(['/login']) ;
+      swal('No se pudo renovar token', 'No fue posible renovar token', 'error');
+      return Observable.throw(err);
       })
     );
 
@@ -134,7 +155,7 @@ export class UsuarioService {
       map((resp:any)=>{
 
         if(usuario._id===this.usuario._id){
-         let usuarioDb:Ucsuario=resp.usuario;
+         let usuarioDb:Usuario=resp.usuario;
          this.guardarStorage(usuarioDb._id, this.token, usuarioDb,this.menu);
         }
       //this.usuario=res.usuario;  
